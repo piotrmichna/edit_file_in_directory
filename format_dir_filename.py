@@ -7,6 +7,7 @@ replace_char = [
     {'char': '$', 'replace': 's'},
     {'char': '&', 'replace': 'and'}
 ]
+file_types = ['*.txt', '*.tx']
 
 
 def file_name_split(name) -> list:
