@@ -1,3 +1,5 @@
+from pathlib import Path
+
 replace_char = [
     {'char': ' ', 'replace': '_'},
     {'char': '.', 'replace': '_'},
@@ -28,6 +30,10 @@ def file_name_clean(filename):
             filename_list = filename.split(char['char'])
             filename = char['replace'].join(filename_list)
     return filename
+
+
+def file_get_new_path(path) -> Path:
+    return Path(path)
 
 
 if __name__ == '__main__':
