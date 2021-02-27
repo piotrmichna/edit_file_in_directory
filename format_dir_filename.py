@@ -1,3 +1,12 @@
+replace_char = [
+    {'char': ' ', 'replace': '_'},
+    {'char': '.', 'replace': '_'},
+    {'char': '@', 'replace': 'a'},
+    {'char': '$', 'replace': 's'},
+    {'char': '&', 'replace': 'and'}
+]
+
+
 def file_name_split(name) -> list:
     file_list = name.split('.')
     if len(file_list) == 1:
