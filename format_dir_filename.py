@@ -1,5 +1,5 @@
 def file_name_split(name) -> list:
-    return []
+    return name.split('.')
 
 
 if __name__ == '__main__':
