@@ -32,8 +32,9 @@ def test_file_name_clean(filename, expected):
 
 @pytest.mark.parametrize('path, expected', (
         (Path('/home/a/ Dokument.txt'), Path('/home/a/Dokument.txt')),
-        (Path('/home/a/ Dok ment.txt '), Path('/home/a/Dok_ment.txt')),
-        (Path('/home/a/ Dok&ment.txt'), Path('/home/a/Dokandment.txt'))
+        (Path('/home/a/ Dok ment .txt'), Path('/home/a/Dok_ment.txt')),
+        (Path('/home/a/ Dok&me.nt.txt'), Path('/home/a/Dokandme_nt.txt')),
+        (Path('/home/a/ Dok&ment'), Path('/home/a/Dokandment'))
 ))
 def test_file_get_new_path(path, expected):
     assert expected == file_get_new_path(path)
