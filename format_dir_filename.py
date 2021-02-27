@@ -1,3 +1,12 @@
+replace_char = [
+    {'char': ' ', 'replace': '_'},
+    {'char': '.', 'replace': '_'},
+    {'char': '@', 'replace': 'a'},
+    {'char': '$', 'replace': 's'},
+    {'char': '&', 'replace': 'and'}
+]
+
+
 def file_name_split(name) -> list:
     file_list = name.split('.')
     if len(file_list) == 1:
@@ -5,6 +14,20 @@ def file_name_split(name) -> list:
     elif len(file_list) > 2:
         return ['.'.join(file_list[:-1]), file_list[-1]]
     return file_list
+
+
+def file_name_clean(filename):
+    filename = str(filename)
+    while filename[0] == ' ':
+        filename = filename[1:]
+    while filename[-1] == ' ':
+        filename = filename[:-1]
+
+    for char in replace_char:
+        if char['char'] in filename:
+            filename_list = filename.split(char['char'])
+            filename = char['replace'].join(filename_list)
+    return filename
 
 
 if __name__ == '__main__':
