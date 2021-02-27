@@ -54,5 +54,12 @@ def file_get_new_path(path: Path) -> Path:
     return Path(path)
 
 
+def get_file_path_list():
+    file_list = []
+    for file_type in file_types:
+        file_list.extend(list(Path.cwd().glob(file_type)))
+    return file_list
+
+
 if __name__ == '__main__':
     print(file_name_split('Dokument tekstowy.txt'))
