@@ -1,6 +1,8 @@
+from pathlib import Path
+
 import pytest
 
-from format_dir_filename import (file_name_split, file_name_clean)
+from format_dir_filename import (file_name_split, file_name_clean, file_get_new_path)
 
 
 @pytest.mark.parametrize('filename, expected', (
@@ -26,3 +28,12 @@ def test_file_name_split(filename, expected):
 ))
 def test_file_name_clean(filename, expected):
     assert expected == file_name_clean(filename)
+
+
+@pytest.mark.parametrize('path, expected', (
+        (Path('/home/a/ Dokument.txt'), Path('/home/a/Dokument.txt')),
+        (Path('/home/a/ Dok ment.txt '), Path('/home/a/Dok_ment.txt')),
+        (Path('/home/a/ Dok&ment.txt'), Path('/home/a/Dokandment.txt'))
+))
+def test_file_get_new_path(path, expected):
+    assert expected == file_get_new_path(path)
