@@ -1,5 +1,10 @@
 def file_name_split(name) -> list:
-    return name.split('.')
+    file_list = name.split('.')
+    if len(file_list) == 1:
+        file_list.append(False)
+    elif len(file_list) > 2:
+        return ['.'.join(file_list[:-1]), file_list[-1]]
+    return file_list
 
 
 if __name__ == '__main__':
