@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 replace_char = [
@@ -5,8 +6,10 @@ replace_char = [
     {'char': '.', 'replace': '_'},
     {'char': '@', 'replace': 'a'},
     {'char': '$', 'replace': 's'},
+    {'char': '#', 'replace': 'x'},
     {'char': '&', 'replace': 'and'}
 ]
+file_types = ['*.txt', '*.tx']
 
 
 def file_name_split(name) -> list:
@@ -53,5 +56,66 @@ def file_get_new_path(path: Path) -> Path:
     return Path(path)
 
 
+def get_file_path_list():
+    file_list = []
+    for file_type in file_types:
+        file_list.extend(list(Path.cwd().glob(file_type)))
+    return file_list
+
+
+def get_not_correct_file_list():
+    file_list = get_file_path_list()
+    not_correct_list = []
+    for file_path in file_list:
+        new_file_path = file_get_new_path(file_path)
+        if new_file_path != file_path:
+            not_correct_list.append({'old': file_path, 'new': new_file_path})
+
+    flag = 1
+    while flag:
+        flag = 0
+        for x in range(0, len(not_correct_list)):
+            filenamex = file_name_split(not_correct_list[x]['new'].name)
+
+            for y in range(0, len(file_list)):
+                filenamey = file_name_split(file_list[y].name)
+                if filenamex[0] == filenamey[0]:
+                    flag += 1
+                    numb = ''
+                    nx = filenamex[0][-1]
+                    while nx.isdigit():
+                        numb = numb + nx
+                        filenamex[0] = filenamex[0][0:-1]
+                        nx = filenamex[0][-1]
+
+                    if numb != '':
+                        if len(numb) > 1:
+                            numb = str(numb)[::-1]
+
+                        numb = int(numb)
+                        numb += 1
+                    else:
+                        numb = 0
+
+                    filenamex[0] = filenamex[0] + str(numb)
+                    if filenamex[1]:
+                        filename = '.'.join(filenamex)
+                    else:
+                        filename = filenamex[0]
+
+                    file_path = str(not_correct_list[x]['new'])
+                    file_path = file_path.split('/')
+                    file_path[-1] = filename
+                    file_path = '/'.join(file_path)
+                    not_correct_list[x]['new'] = Path(file_path)
+                    break
+    return not_correct_list
+
+
 if __name__ == '__main__':
-    print(file_name_split('Dokument tekstowy.txt'))
+    path_list = get_not_correct_file_list()
+    print('---WYKONANIE---')
+    for path in path_list:
+        print(path['old'])
+        print(path['new'])
+        os.rename(path['old'], path['new'])
