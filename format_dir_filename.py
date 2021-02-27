@@ -6,6 +6,8 @@ def file_name_split(name) -> list:
         return ['.'.join(file_list[:-1]), file_list[-1]]
     return file_list
 
+def file_name_clean(filename):
+    return filename
 
 if __name__ == '__main__':
     print(file_name_split('Dokument tekstowy.txt'))
