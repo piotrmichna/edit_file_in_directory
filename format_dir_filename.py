@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 replace_char = [
@@ -5,6 +6,7 @@ replace_char = [
     {'char': '.', 'replace': '_'},
     {'char': '@', 'replace': 'a'},
     {'char': '$', 'replace': 's'},
+    {'char': '#', 'replace': 'x'},
     {'char': '&', 'replace': 'and'}
 ]
 file_types = ['*.txt', '*.tx']
@@ -111,4 +113,9 @@ def get_not_correct_file_list():
 
 
 if __name__ == '__main__':
-    print(file_name_split('Dokument tekstowy.txt'))
+    path_list = get_not_correct_file_list()
+    print('---WYKONANIE---')
+    for path in path_list:
+        print(path['old'])
+        print(path['new'])
+        os.rename(path['old'], path['new'])
