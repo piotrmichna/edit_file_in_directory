@@ -29,5 +29,6 @@ def file_name_clean(filename):
             filename = char['replace'].join(filename_list)
     return filename
 
+
 if __name__ == '__main__':
     print(file_name_split('Dokument tekstowy.txt'))
