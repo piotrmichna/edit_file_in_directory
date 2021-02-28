@@ -111,6 +111,25 @@ def get_not_correct_file_list():
                     file_path = '/'.join(file_path)
                     not_correct_list[x]['new'] = Path(file_path)
                     break
+
+    print('--sprawdzenie duplikatow--')
+    flag = 1
+    while (flag):
+        flag = 0
+        for x in range(0, len(not_correct_list)):
+            filenamex = file_name_split(not_correct_list[x]['new'].name)
+            for z in range(0, x):
+                filenamez = file_name_split(not_correct_list[z]['new'].name)
+                if (filenamex[0] == filenamez[0]):
+                    print(f'a={filenamex[0]} b={filenamez[0]}')
+                    flag = 1
+                    file_path = str(not_correct_list[x]['new'])
+                    file_path = file_path.split('/')
+                    file_path[-1] = check_duplicate_name(filenamex)
+                    file_path = '/'.join(file_path)
+                    not_correct_list[x]['new'] = Path(file_path)
+                    break
+
     return not_correct_list
 
 
