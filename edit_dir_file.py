@@ -67,11 +67,12 @@ def get_file_edit():
             sleep(1)
             s += 1
             print('-', end='')
-        print('')
+
         if file['edited']:
             os.rename(file['file'], file['edited'])
-            print(f'{n}. Zmiana nazwy: {file["file"].name} -> {file["edited"].name}')
+            print(f'> Zmiana nazwy: {file["file"].name} -> {file["edited"].name}')
         n += 1
+        print('')
     print('----------------------------')
 
 
