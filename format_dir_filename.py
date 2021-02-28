@@ -63,6 +63,31 @@ def get_file_path_list():
     return file_list
 
 
+def check_duplicate_name(filenamex: list):
+    numb = ''
+    nx = filenamex[0][-1]
+    while nx.isdigit():
+        numb = numb + nx
+        filenamex[0] = filenamex[0][0:-1]
+        nx = filenamex[0][-1]
+
+    if numb != '':
+        if len(numb) > 1:
+            numb = str(numb)[::-1]
+
+        numb = int(numb)
+        numb += 1
+    else:
+        numb = 0
+
+    filenamex[0] = filenamex[0] + str(numb)
+    if filenamex[1]:
+        filename = '.'.join(filenamex)
+    else:
+        filename = filenamex[0]
+    return filename
+
+
 def get_not_correct_file_list():
     file_list = get_file_path_list()
     not_correct_list = []
@@ -76,36 +101,13 @@ def get_not_correct_file_list():
         flag = 0
         for x in range(0, len(not_correct_list)):
             filenamex = file_name_split(not_correct_list[x]['new'].name)
-
             for y in range(0, len(file_list)):
                 filenamey = file_name_split(file_list[y].name)
                 if filenamex[0] == filenamey[0]:
                     flag += 1
-                    numb = ''
-                    nx = filenamex[0][-1]
-                    while nx.isdigit():
-                        numb = numb + nx
-                        filenamex[0] = filenamex[0][0:-1]
-                        nx = filenamex[0][-1]
-
-                    if numb != '':
-                        if len(numb) > 1:
-                            numb = str(numb)[::-1]
-
-                        numb = int(numb)
-                        numb += 1
-                    else:
-                        numb = 0
-
-                    filenamex[0] = filenamex[0] + str(numb)
-                    if filenamex[1]:
-                        filename = '.'.join(filenamex)
-                    else:
-                        filename = filenamex[0]
-
                     file_path = str(not_correct_list[x]['new'])
                     file_path = file_path.split('/')
-                    file_path[-1] = filename
+                    file_path[-1] = check_duplicate_name(filenamex)
                     file_path = '/'.join(file_path)
                     not_correct_list[x]['new'] = Path(file_path)
                     break
