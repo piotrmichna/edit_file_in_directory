@@ -1,9 +1,12 @@
+import os
 from pathlib import Path
+from time import sleep
 
 from format_dir_filename import file_types, file_name_split
 
 EDITED_END_FILE_PATTERN = None
 EDITED_FILE_EXTENSION = 'txt'
+SLEEP_SEC = 5
 
 
 def get_file_path_list():
@@ -45,5 +48,25 @@ def get_file_path_list():
     return file_list_to_edit
 
 
+def get_file_edit():
+    file_list = get_file_path_list()
+    print('---EDIT FILE INSTRUCTIONS---')
+    n = 1
+    for file in file_list:
+        print(f'{n}. Edycja pliku [{file["file"].name}]')
+        # DZIALANIA NA PLIKU
+        s = 0
+        while s < SLEEP_SEC:
+            sleep(1)
+            s += 1
+            print('-', end='')
+        print('')
+        if file['edited']:
+            os.rename(file['file'], file['edited'])
+            print(f'{n}. Zmiana nazwy: {file["file"].name} -> {file["edited"].name}')
+        n += 1
+    print('----------------------------')
+
+
 if __name__ == '__main__':
-    get_file_path_list()
+    get_file_edit()
