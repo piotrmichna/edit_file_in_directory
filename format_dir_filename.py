@@ -121,7 +121,7 @@ def get_not_correct_file_list():
             for z in range(0, x):
                 filenamez = file_name_split(not_correct_list[z]['new'].name)
                 if (filenamex[0] == filenamez[0]):
-                    print(f'a={filenamex[0]} b={filenamez[0]}')
+                    print(f'x={filenamex[0]} z={filenamez[0]}')
                     flag = 1
                     file_path = str(not_correct_list[x]['new'])
                     file_path = file_path.split('/')
