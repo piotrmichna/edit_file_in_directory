@@ -4,8 +4,8 @@ from time import sleep
 
 from format_dir_filename import file_types, file_name_split, get_rename_file
 
-EDITED_END_FILE_PATTERN = None
-EDITED_FILE_EXTENSION = 'txt'
+EDITED_END_FILE_PATTERN = '_e'
+EDITED_FILE_EXTENSION = None
 SLEEP_SEC = 5
 
 
@@ -27,18 +27,24 @@ def get_file_path_list():
                 file_ext = EDITED_FILE_EXTENSION
 
             if EDITED_END_FILE_PATTERN:
-                file_pattern = file_name[-2:]
+                if len(file_name) < len(EDITED_END_FILE_PATTERN):
+                    file_pattern = file_name
+                else:
+                    file_pattern = file_name[-len(EDITED_END_FILE_PATTERN):]
                 if file_pattern != EDITED_END_FILE_PATTERN:
                     file_name = f'{file_name}{EDITED_END_FILE_PATTERN}'
-            if file_ext:
+                else:
+                    file_name=None
+            if file_ext and file_name is not None:
                 file_name = f'{file_name}.{file_ext}'
 
-            new_file = str(file).split('/')
-            new_file[-1] = file_name
-            new_file = Path('/'.join(new_file))
-            file_list_to_edit.append({'file': file, 'edited': new_file})
-            print(f'{n}. file to edit={file.name} edited={new_file.name}')
-            n += 1
+            if file_name:
+                new_file = str(file).split('/')
+                new_file[-1] = file_name
+                new_file = Path('/'.join(new_file))
+                file_list_to_edit.append({'file': file, 'edited': new_file})
+                print(f'{n}. file to edit={file.name} edited={new_file.name}')
+                n += 1
 
         else:
             file_list_to_edit.append({'file': file, 'edited': None})
