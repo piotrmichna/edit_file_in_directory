@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from time import sleep
 
-from format_dir_filename import file_types, file_name_split
+from format_dir_filename import file_types, file_name_split, get_rename_file
 
 EDITED_END_FILE_PATTERN = None
 EDITED_FILE_EXTENSION = 'txt'
@@ -49,6 +49,7 @@ def get_file_path_list():
 
 
 def get_file_edit():
+    get_rename_file()
     file_list = get_file_path_list()
     print('---EDIT FILE INSTRUCTIONS---')
     n = 1
