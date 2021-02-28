@@ -1,3 +1,8 @@
+# author: Piotr Michna
+# e-mail: pm@piotrmichna.pl
+
+#!/usr/bin/python3
+
 import os
 from pathlib import Path
 from time import sleep
@@ -10,6 +15,12 @@ SLEEP_SEC = 5
 
 
 def get_file_path_list():
+    """
+    Funkcja generuje listę słowników nazw plików występujących w bierzącym katalogu
+    zgodnie z zdefiniowanymi rozszeżeniamie plików.
+
+    :return: list[{'file': ,'edited':None}]
+    """
     file_list = []
     for file_type in file_types:
         file_list.extend(list(Path.cwd().glob(file_type)))
@@ -34,7 +45,7 @@ def get_file_path_list():
                 if file_pattern != EDITED_END_FILE_PATTERN:
                     file_name = f'{file_name}{EDITED_END_FILE_PATTERN}'
                 else:
-                    file_name=None
+                    file_name = None
             if file_ext and file_name is not None:
                 file_name = f'{file_name}.{file_ext}'
 
@@ -55,6 +66,12 @@ def get_file_path_list():
 
 
 def get_file_edit():
+    """
+    Funkcja wywołuje edycję na plikach z listy kwalifikowanej oraz
+    porządkuje nazwy plków.
+
+    :return: None
+    """
     get_rename_file()
     file_list = get_file_path_list()
     print('---EDIT FILE INSTRUCTIONS---')
