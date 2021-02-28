@@ -112,10 +112,17 @@ def get_not_correct_file_list():
     return not_correct_list
 
 
-if __name__ == '__main__':
+def get_rename_file():
+    print('---SPRAWDZENIE POPRAWNOŚCI NAZW---')
     path_list = get_not_correct_file_list()
-    print('---WYKONANIE---')
+    n = 1
     for path in path_list:
-        print(path['old'])
-        print(path['new'])
+        print(f"{n}. {path['old']} -> {path['new']}")
+        n += 1
         os.rename(path['old'], path['new'])
+
+    print('-----------------------------------')
+
+
+if __name__ == '__main__':
+    get_rename_file()
