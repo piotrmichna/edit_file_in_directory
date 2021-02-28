@@ -63,13 +63,13 @@ def get_file_path_list():
     return file_list
 
 
-def check_duplicate_name(filenamex: list):
+def check_duplicate_name(filename: list):
     numb = ''
-    nx = filenamex[0][-1]
+    nx = filename[0][-1]
     while nx.isdigit():
         numb = numb + nx
-        filenamex[0] = filenamex[0][0:-1]
-        nx = filenamex[0][-1]
+        filename[0] = filename[0][0:-1]
+        nx = filename[0][-1]
 
     if numb != '':
         if len(numb) > 1:
@@ -80,12 +80,12 @@ def check_duplicate_name(filenamex: list):
     else:
         numb = 0
 
-    filenamex[0] = filenamex[0] + str(numb)
-    if filenamex[1]:
-        filename = '.'.join(filenamex)
+    filename[0] = filename[0] + str(numb)
+    if filename[1]:
+        name = '.'.join(filename)
     else:
-        filename = filenamex[0]
-    return filename
+        name = filename[0]
+    return name
 
 
 def get_not_correct_file_list():
